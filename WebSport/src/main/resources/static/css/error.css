@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin Sans');
+
+h1 {
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 200px;
+    text-align: center;
+}
+h2 {
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 200px;
+    text-align: center;
+}
+.button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    font-family: "Comfortaa", sans-serif;
+}
+.button:hover {
+    background-color: #3e8e41;
+}
