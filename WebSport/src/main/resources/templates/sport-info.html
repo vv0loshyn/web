@@ -11,12 +11,20 @@
 <div class="container mt-5">
     <div th:each="el : ${post}" class="alert alerts-info mt-2">
         <h2 th:text="${el.title}"/>
-        <p1><b>Час проведення:</b> <span th:text="${el.date}"/></p1><br>
+        <p1><b>Час проведення:</b> <span th:text="${el.game.date}"/></p1><br>
         <p1><b>Місце проведення:</b> <span th:text="${el.location}"/></p1>
         <h2><b>Команди</b></h2>
         <div class="d-flex justify-content-between">
             <p1 th:text="${el.team1}"></p1>
             <p1 th:text="${el.team2}"></p1>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div>
+                <p3 th:text="${el.game.players1}"></p3>
+            </div>
+            <div>
+                <p3 th:text="${el.game.players2}"></p3>
+            </div>
         </div>
         <h2><b>Рахунок</b></h2>
         <div class="d-flex justify-content-between">

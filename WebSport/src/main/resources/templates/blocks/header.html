@@ -1,14 +1,23 @@
 <div th:fragment="header">
-    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-        <a1 href="/" class="d-flex align-items-center text-decoration-none">
-            <span class="fs-4">WebSport</span>
-        </a1>
+    <div class="header2 d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+        <a class="logo" href="/">
+            <span class="logo-item">Web</span>Sport
+        </a>
+
         <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
             <a class="button me-3 py-2 text-decoration-none" href="/">Головна</a>
             <a class="button me-3 py-2 text-decoration-none" href="/sport">Розклад</a>
-            <a class="button me-3 py-2 text-decoration-none" href="/sport/add">Додати розклад</a>
+            <a class="button me-3 py-2 text-decoration-none" href="/sport/info/add">Додати розклад</a>
             <a class="button me-3 py-2 text-decoration-none" href="/about">Про нас</a>
             <a class="button me-3 py-2 text-decoration-none" href="/login">Авторизація</a>
         </nav>
+        <ul class="contacts">
+            <li class="nav-item">
+                <a class="mail-link" href="mailto:info@sportstudio.com">info@sportstudio.com</a>
+            </li>
+            <li class="nav-item">
+                <a class="phone-link" href="tel:+380681111111">+38 068 111 11 11</a>
+            </li>
+        </ul>
     </div>
 </div>

@@ -1,8 +1,7 @@
 package com.sport.WebSport.controllers;
 
-import com.sport.WebSport.models.Role;
-import com.sport.WebSport.models.User;
-import com.sport.WebSport.repo.UserRepository;
+import com.sport.WebSport.models.*;
+import com.sport.WebSport.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,26 +10,28 @@ import java.util.Map;
 
 @Controller
 public class RegistrationController {
-    private final UserRepository userRepository;
 
-    public RegistrationController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    private final UserService userService;
+
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/registration")
     public String registration() {
         return "registration";
     }
+
     @PostMapping("/registration")
     public String addUser(User user, Map<String, Object> model) {
-        User userFromDb = userRepository.findByUsername(user.getUsername());
+        User userFromDb = userService.findByUsername(user.getUsername());
         if (userFromDb != null) {
-            model.put("message", "User exists!");
+            model.put("error", "Користувач з таким ім'ям вже існує!");
             return "registration";
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.ADMIN));
-        userRepository.save(user);
+        userService.save(user);
 
         return "redirect:/login";
     }

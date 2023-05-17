@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin Sans');
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
 
 h1 {
     font-family: "Josefin Sans", sans-serif;
-    font-size: 200px;
+    font-size: 150px;
     text-align: center;
 }
 h2 {
     font-family: "Josefin Sans", sans-serif;
-    font-size: 200px;
+    font-size: 100px;
     text-align: center;
 }
 .button {
@@ -23,3 +24,4 @@ h2 {
 .button:hover {
     background-color: #3e8e41;
 }
+

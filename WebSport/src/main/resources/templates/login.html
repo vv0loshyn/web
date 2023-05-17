@@ -9,7 +9,7 @@
 <header th:insert="blocks/header :: header"></header>
 <div class="container">
   <h1>Вхід в акаунт</h1>
-  <div th:if="${param.error}">
+  <div th:if="${param.error}" class="alert alert-danger">
   Неправильне ім'я або пароль.
 </div>
 <div th:if="${param.logout}">
@@ -23,7 +23,7 @@
   <form th:action="@{/logout}" method="post">
     <input type="submit" value="Вийти з акаунту"/>
   </form><br>
-  <a class="button me-3 py-2 text-decoration-none" href="/registration">Додати нового користувача</a>
+  <a class="button me-3 py-2 text-decoration-none" href="/registration">Зареєструватися</a>
 </div>
 <div th:insert="blocks/footer :: footer"></div>
 </body>

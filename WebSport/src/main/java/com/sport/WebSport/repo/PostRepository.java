@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PostRepository extends CrudRepository<Post, Long> {
-    List<Post> findByTeam1ContainingIgnoreCaseOrTeam2ContainingIgnoreCase(String team1, String team2);
+    List<Post> findByTeam1OrTeam2(String team1, String team2);
 }

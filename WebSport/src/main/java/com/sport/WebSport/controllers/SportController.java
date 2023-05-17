@@ -1,7 +1,8 @@
 package com.sport.WebSport.controllers;
 
 import com.sport.WebSport.models.Post;
-import com.sport.WebSport.repo.PostRepository;
+import com.sport.WebSport.models.Result;
+import com.sport.WebSport.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -9,27 +10,29 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-
 @Controller
+@RequestMapping("/sport")
 public class SportController {
 
-    private final PostRepository postRepository;
+    private final PostService postService;
 
-    public SportController(PostRepository postRepository) {
-        this.postRepository = postRepository;
+    public SportController(PostService postService) {
+        this.postService = postService;
     }
 
-    @GetMapping("/sport")
+    @GetMapping()
     public String sportMain(Model model) {
-        Iterable<Post> posts = postRepository.findAll();
+        List<Post> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
         return "sport-main";
     }
-    @GetMapping("/sport/add")
+
+    @GetMapping("/info/add")
     public String sportAdd(@ModelAttribute("post") Post post) {
         return "sport-add";
     }
-    @PostMapping("/sport/add")
+
+    @PostMapping("/info/add")
     public String sportPostAdd(@ModelAttribute("post") @Valid Post post,
                                BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -38,29 +41,33 @@ public class SportController {
             bindingResult.rejectValue("team2", "error.post", "Назва другої команди не повинна співпадати з назвою першої команди");
             return "sport-add";
         }
-        postRepository.save(post);
+        Result result = new Result(post.getRes1(), post.getRes2());
+        post.setResult(result);
+        postService.savePost(post);
         return "redirect:/sport";
     }
-    @GetMapping("/sport/{id}")
+
+    @GetMapping("/{id}")
     public String sportInfo(@PathVariable(value = "id") long id, Model model) {
-        if (!postRepository.existsById(id)) {
+        Optional<Post> post = postService.findPostById(id);
+        if (post.isEmpty()) {
             return "redirect:/sport";
         }
-        Optional<Post> post = postRepository.findById(id);
-        ArrayList<Post> res = new ArrayList<>();
-        post.ifPresent(res::add);
-        model.addAttribute("post", res);
+        model.addAttribute("post", post.get());
         return "sport-info";
     }
 
-    @GetMapping("/sport/{id}/edit")
+    @GetMapping("/{id}/edit")
     public String sportGetUpdate(Model model, @PathVariable("id") long id) {
-        Post post = postRepository.findById(id).orElseThrow();
-        model.addAttribute("post", post);
+        Optional<Post> post = postService.findPostById(id);
+        if (post.isEmpty()) {
+            return "redirect:/sport";
+        }
+        model.addAttribute("post", post.get());
         return "sport-edit";
     }
 
-    @PostMapping("/sport/{id}/edit")
+    @PostMapping("/{id}/edit")
     public String sportPostUpdate(@ModelAttribute("post") @Valid Post post, BindingResult bindingResult,
                                   @PathVariable("id") long id, Model model) {
         if(bindingResult.hasErrors()) {
@@ -71,18 +78,22 @@ public class SportController {
             bindingResult.rejectValue("team2", "error.post", "Назва другої команди не повинна співпадати з назвою першої команди");
             return "sport-edit";
         }
-        postRepository.save(post);
-        return "redirect:/sport";
+        Result result = new Result(post.getRes1(), post.getRes2());
+        post.setResult(result);
+        postService.savePost(post);
+        return "redirect:/sport/{id}";
     }
-    @PostMapping("/sport/{id}/remove")
+
+    @PostMapping("/{id}/remove")
     public String sportPostRemove(@PathVariable(value = "id") long id, Model model) {
-        Post post = postRepository.findById(id).orElseThrow();
-        postRepository.delete(post);
+        Post post = postService.findPostById(id).orElseThrow();
+        postService.deletePost(id);
         return "redirect:/sport";
     }
-    @GetMapping("/sport/search")
+
+    @GetMapping("/search")
     public String sportSearch(@RequestParam(name = "team") String team, Model model) {
-        List<Post> posts = postRepository.findByTeam1ContainingIgnoreCaseOrTeam2ContainingIgnoreCase(team, team);
+        List<Post> posts = postService.searchPosts(team);
         model.addAttribute("posts", posts);
         return "sport-main";
     }
