@@ -91,7 +91,7 @@ h3 {
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-5 mb-5">
     <h1>Додавання розкладу</h1>
-    <form action="/sport/info/add" method="post" th:object="${post}">
+    <form action="/admin/info/add" method="post" th:object="${post}">
         <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error">Title error</div>
         <input type="text" name="title" placeholder="Введіть назву змагань" class="form-control"><br>
         <div th:if="${#fields.hasErrors('location')}" th:errors="*{location}" class="error">Location error</div>

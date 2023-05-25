@@ -1,5 +1,6 @@
 package com.sport.WebSport.service;
 
+import com.sport.WebSport.models.Role;
 import com.sport.WebSport.models.User;
 import com.sport.WebSport.repo.UserRepository;
 import org.springframework.stereotype.Service;

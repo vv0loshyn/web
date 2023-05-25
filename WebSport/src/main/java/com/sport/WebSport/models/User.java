@@ -22,6 +22,7 @@ public class User {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
+
     boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)

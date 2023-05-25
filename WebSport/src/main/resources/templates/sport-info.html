@@ -31,10 +31,6 @@
             <p2 th:text="${el.res1}"></p2>
             <p2 th:text="${el.res2}"></p2>
         </div>
-        <a th:href="'/sport/' + ${el.id} + '/edit'" class="btn btn-warning">Редагувати</a><br><br>
-        <form th:action="'/sport/' + ${el.id} + '/remove'" method="post">
-            <button class="btn btn-warning" type="submit">Видалити</button>
-        </form>
     </div>
 </div>
 <div th:insert="blocks/footer :: footer"></div>
